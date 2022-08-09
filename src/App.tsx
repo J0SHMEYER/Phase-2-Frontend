@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState } from 'react';
 import './App.css';
-import { Box, Button, Grid, Paper, Skeleton } from "@mui/material";
+import { Box, Button, Card, CardContent, CardMedia, Grid, Paper, Skeleton, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
+import { SystemSecurityUpdate } from "@mui/icons-material";
 
 function App() {
   // Declare new state variable called "spacecraftName"
@@ -12,7 +13,7 @@ function App() {
 
   const SPACECRAFT_BASE_URL = "https://lldev.thespacedevs.com/2.2.0";
   return (
-    <div>
+    <div style={{backgroundColor: "white", color: "#00035c"}}>
 
       <div className="search-field">
         <h1 style={{ display: "flex", justifyContent: "center" }}>
@@ -46,21 +47,37 @@ function App() {
 
 
       {spacecraftInfo === undefined ? (
-        <div></div>
+        <div>
+          <p style={{margin: "0 auto", textAlign: "center", padding: "30px 50px 0px 50px"}}> 
+          sorry no spacecraft with that name found </p>
+        </div>
       ) : (
       <div id ="spacecraft-result" style={{maxWidth: "500px", margin: "0 auto", padding: "30px 100px 0px 100px"}}>
-        <div style={{margin: "auto", textAlign: "center"}}>
-          <p>Result: {spacecraftInfo.name}</p>
-        </div>
+        <Card sx={{ minWidth: 275 , bgcolor: "#fcfcfc"}}>
+      <CardContent>
+        <Typography sx={{ fontSize: 17 }} color="text.main" gutterBottom textAlign={"center"}>
+        Result: {spacecraftInfo.name}
+        </Typography>
         <div style={{textAlign: "center" }}>
           <img src={spacecraftInfo.image_url} 
           style={{ height: "400px" ,width:"465px", objectFit: "cover", }}/>
         </div>
-        <p style={{margin: "0 auto", textAlign: "center", padding: "30px 50px 0px 50px"}}>Name of agency {spacecraftInfo.agency.name}</p>
-        <p style={{margin: "0 auto", textAlign: "center", padding: "30px 10px 0px 10px"}}>{spacecraftInfo.agency.description}</p>
+        <Typography gutterBottom variant="h4">
+        </Typography>
+        <Typography variant="body2" textAlign={"center"} gutterBottom color="text.main" sx={{ fontSize: 15 }}>
+          Name of agency {spacecraftInfo.agency.name}
+        </Typography>
+        <Typography textAlign={"center"} color="text.secondary" gutterBottom sx={{ fontSize: 13 }}>
+          {spacecraftInfo.agency.description}
+        </Typography>
+        <Typography textAlign={"center"} color="text.secondary" gutterBottom sx={{ fontSize: 13 }}>
+          date of flight {spacecraftInfo.maiden_flight}
+        </Typography>
+      </CardContent>
+    </Card>
+
       </div>
       )};
-
 
     </div>
   );
